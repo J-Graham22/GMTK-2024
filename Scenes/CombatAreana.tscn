@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bruplfld78tvc"]
+
+[ext_resource type="Script" path="res://Scripts/TurnQueue.gd" id="1_lyl8h"]
+[ext_resource type="Script" path="res://Scripts/Battler.gd" id="2_bbbia"]
+[ext_resource type="Texture2D" uid="uid://ckn5awc2ml7pe" path="res://Assets/Graphics/icon.svg" id="3_tb58n"]
+
+[node name="TurnQueue" type="Node2D"]
+script = ExtResource("1_lyl8h")
+
+[node name="SpawnPositions" type="Node" parent="."]
+
+[node name="Battler1" type="Marker2D" parent="SpawnPositions"]
+script = ExtResource("2_bbbia")
+
+[node name="Gobot" type="Sprite2D" parent="."]
+position = Vector2(65, 68)
+texture = ExtResource("3_tb58n")
+
+[node name="Gobot2" type="Sprite2D" parent="."]
+position = Vector2(65, 68)
+texture = ExtResource("3_tb58n")
+
+[node name="Gobot3" type="Sprite2D" parent="."]
+position = Vector2(65, 68)
+texture = ExtResource("3_tb58n")

@@ -1,0 +1,322 @@
+[gd_scene load_steps=13 format=3 uid="uid://n68qq2b5188f"]
+
+[ext_resource type="Texture2D" uid="uid://dar5ljmt31ry" path="res://Assets/Graphics/a276.png" id="1_iy4uy"]
+[ext_resource type="Texture2D" uid="uid://ckn5awc2ml7pe" path="res://Assets/Graphics/icon.svg" id="1_k6v4x"]
+[ext_resource type="Script" path="res://Scripts/Battle.gd" id="1_m7jcn"]
+[ext_resource type="Resource" uid="uid://dcclkc5v0t0jp" path="res://Enemies/Goblin.tres" id="2_t212o"]
+[ext_resource type="FontFile" uid="uid://c3t4fct8poprd" path="res://Assets/Fonts/ChildWriting-Regular.ttf" id="3_ln075"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntlf1"]
+bg_color = Color(0, 0, 0, 0.501961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cq7ks"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+
+[sub_resource type="Animation" id="Animation_3isms"]
+resource_name = "enemy_damaged"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemies/Enemy1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_l10ee"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemies/Enemy1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_31okp"]
+resource_name = "screen_shake"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-14, -19), Vector2(12, 15), Vector2(12, -10), Vector2(19, -6), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_n6p37"]
+resource_name = "enemy_died"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemies/Enemy1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5v8qi"]
+_data = {
+"RESET": SubResource("Animation_l10ee"),
+"enemy_damaged": SubResource("Animation_3isms"),
+"enemy_died": SubResource("Animation_n6p37"),
+"screen_shake": SubResource("Animation_31okp")
+}
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m7jcn")
+enemy = ExtResource("2_t212o")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_iy4uy")
+
+[node name="Enemies" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_bottom = 392.0
+grow_horizontal = 0
+
+[node name="Enemy1" type="TextureRect" parent="Enemies"]
+layout_mode = 2
+texture = ExtResource("1_k6v4x")
+
+[node name="Enemy2" type="TextureRect" parent="Enemies"]
+layout_mode = 2
+texture = ExtResource("1_k6v4x")
+
+[node name="Enemy3" type="TextureRect" parent="Enemies"]
+layout_mode = 2
+texture = ExtResource("1_k6v4x")
+
+[node name="PlayerPanel" type="Panel" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -128.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ntlf1")
+
+[node name="PlayerData" type="HBoxContainer" parent="PlayerPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="PlayerPanel" type="Panel" parent="PlayerPanel/PlayerData"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerPanel/PlayerData/PlayerPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CharacterList" type="VBoxContainer" parent="PlayerPanel/PlayerData/PlayerPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Henry" type="Label" parent="PlayerPanel/PlayerData/PlayerPanel/HBoxContainer/CharacterList"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ln075")
+text = "Henry"
+
+[node name="Luke" type="Label" parent="PlayerPanel/PlayerData/PlayerPanel/HBoxContainer/CharacterList"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ln075")
+text = "Luke"
+
+[node name="Claire" type="Label" parent="PlayerPanel/PlayerData/PlayerPanel/HBoxContainer/CharacterList"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ln075")
+text = "Claire"
+
+[node name="Sarah" type="Label" parent="PlayerPanel/PlayerData/PlayerPanel/HBoxContainer/CharacterList"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ln075")
+text = "Sarah"
+
+[node name="CharacterHPList" type="VBoxContainer" parent="PlayerPanel/PlayerData/PlayerPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HenryHP" type="Label" parent="PlayerPanel/PlayerData/PlayerPanel/HBoxContainer/CharacterHPList"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ln075")
+text = "Henry"
+
+[node name="LukeHP" type="Label" parent="PlayerPanel/PlayerData/PlayerPanel/HBoxContainer/CharacterHPList"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ln075")
+text = "Luke"
+
+[node name="ClaireHP" type="Label" parent="PlayerPanel/PlayerData/PlayerPanel/HBoxContainer/CharacterHPList"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ln075")
+text = "Claire"
+
+[node name="SarahHP" type="Label" parent="PlayerPanel/PlayerData/PlayerPanel/HBoxContainer/CharacterHPList"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ln075")
+text = "Sarah"
+
+[node name="ActionsPanel" type="Panel" parent="PlayerPanel/PlayerData"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerPanel/PlayerData/ActionsPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Attack" type="Button" parent="PlayerPanel/PlayerData/ActionsPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ln075")
+text = "ATTACK"
+
+[node name="Defend" type="Button" parent="PlayerPanel/PlayerData/ActionsPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ln075")
+text = "DEFEND"
+
+[node name="Options" type="Button" parent="PlayerPanel/PlayerData/ActionsPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ln075")
+text = "OPTIONS"
+
+[node name="Run" type="Button" parent="PlayerPanel/PlayerData/ActionsPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ln075")
+text = "RUN"
+
+[node name="Textbox" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 164.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cq7ks")
+
+[node name="Label" type="Label" parent="Textbox"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_ln075")
+theme_override_font_sizes/font_size = 50
+text = "Enemies appear!"
+
+[node name="Label2" type="Label" parent="Textbox"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -36.0
+offset_right = -10.0
+offset_bottom = -13.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_ln075")
+theme_override_font_sizes/font_size = 50
+text = "..."
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5v8qi")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[connection signal="pressed" from="PlayerPanel/PlayerData/ActionsPanel/VBoxContainer/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="PlayerPanel/PlayerData/ActionsPanel/VBoxContainer/Run" to="." method="_on_run_pressed"]

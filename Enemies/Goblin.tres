@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dcclkc5v0t0jp"]
+
+[ext_resource type="Script" path="res://Scripts/EnemyResource.gd" id="1_gcej8"]
+[ext_resource type="Texture2D" uid="uid://ve7yksxg5fes" path="res://Assets/Graphics/638062024584880857.png" id="2_6i8yn"]
+
+[resource]
+script = ExtResource("1_gcej8")
+name = "Goblin"
+texture = ExtResource("2_6i8yn")
+health = 40
+atk = 5
